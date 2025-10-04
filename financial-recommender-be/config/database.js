@@ -1,0 +1,23 @@
+const mongoose = require('mongoose');
+const dotenv = require('dotenv'); 
+
+
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    const mongoURI = process.env.MONGO_URI; 
+    if (!mongoURI) {
+    throw new Error("❌ MONGO_URI not found in environment variables");
+  }
+
+    const { connection } = await mongoose.connect(mongoURI);
+    
+
+    console.log(`Connected to DB ${connection.host}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports = connectDB;
